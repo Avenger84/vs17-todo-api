@@ -18,7 +18,7 @@ app.get('/todos', function (req, res) {
     var queryparams = req.query;
     var filteredTodos = todos;
 
-    if (queryparams.hasOwnProperty('completed')) {
+    if (queryparams.hasOwnProperty('completed') && queryparams.completed.length > 0) {
         if (queryparams.completed == "true") {
             filteredTodos = _.where(todos, { completed: true });
         } else if (queryparams.completed == "false") {
@@ -26,6 +26,12 @@ app.get('/todos', function (req, res) {
         } else {
             return res.status(400).send();
         }
+    }
+
+    if (queryparams.hasOwnProperty('q') && queryparams.q.length > 0) {
+        filteredTodos = _.filter(todos, function (todo) {
+            return todo.description.toLowerCase().indexOf(queryparams.q.toLowerCase()) > -1;
+        });
     }
 
     res.json(filteredTodos);
