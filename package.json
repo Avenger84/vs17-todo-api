@@ -1,0 +1,9 @@
+{
+  "name": "vs17-todo-api",
+  "version": "0.0.0",
+  "description": "vs17-todo-api",
+  "main": "server.js",
+  "author": {
+    "name": "Umut.Budak"
+  }
+}
