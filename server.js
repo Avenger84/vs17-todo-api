@@ -12,7 +12,7 @@ var todoNextId = 1;
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.send('Todo API Root 3');
+    res.send('Todo API Root 4');
 });
 
 app.get('/todos', function (req, res) {
