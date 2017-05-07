@@ -16,26 +16,30 @@ app.get('/', function (req, res) {
 });
 
 app.get('/todos', function (req, res) {
-    var queryparams = req.query;
-    var filteredTodos = todos;
+    var query = req.query;
+    var where = {};
 
-    if (queryparams.hasOwnProperty('completed') && queryparams.completed.length > 0) {
-        if (queryparams.completed == "true") {
-            filteredTodos = _.where(todos, { completed: true });
-        } else if (queryparams.completed == "false") {
-            filteredTodos = _.where(todos, { completed: false });
+    if (query.hasOwnProperty('completed') && query.completed.length > 0) {
+        if (query.completed == "true") {
+            where.completed = true;
+        } else if (query.completed == "false") {
+            where.completed = false;
         } else {
             return res.status(400).send();
         }
     }
 
-    if (queryparams.hasOwnProperty('q') && queryparams.q.length > 0) {
-        filteredTodos = _.filter(todos, function (todo) {
-            return todo.description.toLowerCase().indexOf(queryparams.q.toLowerCase()) > -1;
-        });
+    if (query.hasOwnProperty('q') && query.q.length > 0) {
+        where.description = {
+            $like: '%' + query.q + '%'
+        };
     }
 
-    res.json(filteredTodos);
+    db.todo.findAll({ where: where }).then(function (todos) { 
+        res.json(todos);
+    }, function (e) { 
+        res.status(500).send();
+    });
 });
 
 // GET /todos/:id
