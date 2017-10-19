@@ -37,6 +37,8 @@ app.get('/todos', middleware.requireAuthentication, function (req, res) {
         };
     }
 
+    where.userId = req.user.id;
+
     db.todo.findAll({ where: where }).then(function (todos) { 
         res.json(todos);
     }, function (e) { 
