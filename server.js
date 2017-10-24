@@ -14,7 +14,7 @@ var todoNextId = 1;
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.send('Todo API Root 5');
+    res.send('Todo API Root 6');
 });
 
 app.get('/todos', middleware.requireAuthentication, function (req, res) {
