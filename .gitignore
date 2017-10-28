@@ -4,5 +4,6 @@ obj/
 *.dat
 *.md
 *.njsproj
+*.sln
 *.sqlite
 *.user
